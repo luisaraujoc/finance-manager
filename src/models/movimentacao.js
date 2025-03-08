@@ -1,48 +1,46 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-class Movimentacao extends Model {}
-
-Movimentacao.init({
+const Movimentacao = sequelize.define(
+  "movimentacoes",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     usuario_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Usuarios',
-            key: 'id',
-        },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Usuarios",
+        key: "id",
+      },
     },
     categoria_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Categorias',
-            key: 'id',
-        },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "Categorias",
+        key: "id",
+      },
     },
     valor: {
-        type: DataTypes.DECIMAL,
-        allowNull: false,
+      type: DataTypes.DECIMAL,
+      allowNull: false,
     },
     data: {
-        type: DataTypes.DATE,
-        allowNull: false,
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     descricao: {
-        type: DataTypes.TEXT,
+      type: DataTypes.TEXT,
     },
-    tipo: {
-        type: DataTypes.ENUM('entrada', 'saida'),
-        allowNull: false,
-    },
-}, {
+  },
+  {
     sequelize,
-    modelName: 'Movimentacao',
-});
+    modelName: "movimentacoes",
+  }
+);
 
 module.exports = Movimentacao;

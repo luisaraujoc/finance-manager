@@ -1,34 +1,40 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/database");
 
-class Usuario extends Model {}
 
-Usuario.init({
+const Usuario = sequelize.define(
+  "usuarios",
+  {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
     },
     nome: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     email: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
     },
     senha: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: {
+          args: [6, 256],
+          msg: "A senha deve ter entre 6 e 256 caracteres",
+        },
+      },
     },
-    data_criacao: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
-}, {
+  },
+  {
     sequelize,
-    modelName: 'Usuario',
-});
+    modelName: "Usuario",
+    timestamps: false
+  },
+);
 
 module.exports = Usuario;
