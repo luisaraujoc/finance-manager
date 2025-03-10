@@ -10,10 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-sequelize.sync({
-    force: true,
-    alter: true,
-})
+sequelize.sync()
 .then(() => {
     console.log('Conectado ao banco de dados');
 }).catch(err => {

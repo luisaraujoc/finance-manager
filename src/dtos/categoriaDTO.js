@@ -1,20 +1,16 @@
-class UsuarioDTO {
-  constructor(usuario) {
-    this.id = usuario.id;
-    this.nome = usuario.nome;
-    this.email = usuario.email;
-    this.data_criacao = usuario.data_criacao;
+class CategoriaDTO{
+  constructor({id, nome, tipo, usuario_id}){
+    this.id = id;
+    this.nome = nome;
+    this.tipo = tipo;
   }
 
-  toModel() {
-    const model = {
-      id: this.id,
-      nome: this.nome,
-      email: this.email,
-    };
-    if (this.senha) model.senha = this.senha; // Inclui senha apenas se existir
-    return model;
+  fromModel(categoria){
+    this.id = categoria.id;
+    this.nome = categoria.nome;
+    this.tipo = categoria.tipo;
   }
+
 }
 
-module.exports = UsuarioDTO;
+module.exports = CategoriaDTO;

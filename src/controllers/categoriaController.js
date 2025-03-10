@@ -16,7 +16,9 @@ class CategoriaController {
   async listar(req, res) {
     try {
       const categorias = await CategoriaDAO.listarPorUsuario(req.params.usuarioId);
-      return res.status(200).json(categorias.map((categoria) => new CategoriaDTO(categoria)));
+      console.log(categorias);
+      // passar apenas id, nome e tipo
+      categorias.map((categoria) => new CategoriaDTO(categoria));
     } catch (erro) {
       return res.status(400).json({ erro: erro.message });
     }
