@@ -27,6 +27,26 @@ const Usuario = sequelize.define(
           args: [6, 256],
           msg: "A senha deve ter entre 6 e 256 caracteres",
         },
+        // caracteres especiais
+        is: {
+          args: /(?=.*[!@#$%^&*])/,
+          msg: "A senha deve conter pelo menos um caracter especial",
+        },
+        // letras maiúsculas
+        is: {
+          args: /(?=.*[A-Z])/,
+          msg: "A senha deve conter pelo menos uma letra maiúscula",
+        },
+        // letras minúsculas
+        is: {
+          args: /(?=.*[a-z])/,
+          msg: "A senha deve conter pelo menos uma letra minúscula",
+        },
+        // números
+        is: {
+          args: /(?=.*[0-9])/,
+          msg: "A senha deve conter pelo menos um número",
+        },
       },
     },
   },

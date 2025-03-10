@@ -3,10 +3,9 @@ const MovimentacaoDTO = require("../dtos/movimentacaoDTO");
 
 class MovimentacaoController {
   async criar(req, res) {
-    const { tipo, valor, data, categoria_id, descricao, usuario_id } = req.body;
+    const { valor, data, categoria_id, descricao, usuario_id } = req.body;
     try {
       const movimentacao = new MovimentacaoDTO({
-        tipo,
         valor,
         data,
         categoria_id,
@@ -48,10 +47,10 @@ class MovimentacaoController {
   }
 
   async atualizar(req, res) {
-    const { tipo, valor, data, categoria_id, descricao, usuario_id } = req.body;
+    const { valor, data, categoria_id, descricao, usuario_id } = req.body;
     const { id } = req.params;
     try {
-      await MovimentacaoDAO.atualizar(id, { tipo, valor, data, categoria_id, descricao, usuario_id });
+      await MovimentacaoDAO.atualizar(id, { valor, data, categoria_id, descricao, usuario_id });
       const movimentacaoAtualizada = await MovimentacaoDAO.buscarPorId(id);
       return res.status(200).json(new MovimentacaoDTO(movimentacaoAtualizada));
     } catch (erro) {
