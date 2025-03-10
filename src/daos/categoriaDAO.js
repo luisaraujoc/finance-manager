@@ -6,7 +6,10 @@ class CategoriaDAO {
   }
   
   async listarPorUsuario(usuarioId) {
-    return await Categoria.findAll({ where: { usuario_id: usuarioId } });
+    return await Categoria.findAll({
+      attributes: ["id", "nome", "tipo"],
+      where: { usuario_id: usuarioId},
+    });
   }
   
   async atualizar(id, categoriaData) {
