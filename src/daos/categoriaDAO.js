@@ -1,28 +1,28 @@
 const Categoria = require("../models/categoria");
 
 class CategoriaDAO {
-  async criar(categoriaData) {
-    return await Categoria.create(categoriaData);
-  }
-  
-  async listarPorUsuario(usuarioId) {
+  static async listarPorUsuario(usuarioId) {
     return await Categoria.findAll({
-      attributes: ["id", "nome", "tipo"],
-      where: { usuario_id: usuarioId},
+      where: { usuario_id: usuarioId },
+      attributes: ['id', 'nome', 'tipo'],
     });
   }
-  
-  async atualizar(id, categoriaData) {
-    await Categoria.update(categoriaData, { where: { id } });
+
+  static async criar(categoriaData) {
+    return await Categoria.create(categoriaData);
   }
-  
-  async buscarPorId(id) {
+
+  static async buscarPorId(id) {
     return await Categoria.findByPk(id);
   }
-  
-  async deletar(id) {
-    return await Categoria.destroy({ where: { id } });
+
+  static async atualizar(id, dados) {
+    await Categoria.update(dados, { where: { id } });
+  }
+
+  static async deletar(id) {
+    await Categoria.destroy({ where: { id } });
   }
 }
 
-module.exports = new CategoriaDAO();
+module.exports = CategoriaDAO;

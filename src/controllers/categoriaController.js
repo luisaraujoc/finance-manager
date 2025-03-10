@@ -7,7 +7,7 @@ class CategoriaController {
     try {
       const categoria = new CategoriaDTO({ nome, tipo, usuario_id });
       const novaCategoria = await CategoriaDAO.criar(categoria.toModel());
-      return res.status(201).json(new CategoriaDTO(novaCategoria));
+      return res.status(201).json(CategoriaDTO.fromModel(novaCategoria));
     } catch (erro) {
       return res.status(400).json({ erro: erro.message });
     }
@@ -16,9 +16,8 @@ class CategoriaController {
   async listar(req, res) {
     try {
       const categorias = await CategoriaDAO.listarPorUsuario(req.params.usuarioId);
-      console.log(categorias);
-      // passar apenas id, nome e tipo
-      categorias.map((categoria) => new CategoriaDTO(categoria));
+      const categoriasDTO = categorias.map((categoria) => CategoriaDTO.fromModel(categoria));
+      return res.json(categoriasDTO);  // Certifique-se de retornar a resposta
     } catch (erro) {
       return res.status(400).json({ erro: erro.message });
     }
