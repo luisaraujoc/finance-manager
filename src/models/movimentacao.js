@@ -30,7 +30,7 @@ const Movimentacao = sequelize.define(
       allowNull: false,
     },
     data: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
     },
     descricao: {
@@ -40,6 +40,7 @@ const Movimentacao = sequelize.define(
   {
     sequelize,
     modelName: "movimentacoes",
+    timestamps: false,
   }
 );
 

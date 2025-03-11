@@ -12,6 +12,7 @@ class MovimentacaoController {
         descricao,
         usuario_id,
       });
+      console.log(movimentacao);
 
       const novaMovimentacao = await MovimentacaoDAO.criar(movimentacao.toModel());
       return res.status(201).json(new MovimentacaoDTO(novaMovimentacao));
@@ -33,14 +34,12 @@ class MovimentacaoController {
     const { usuarioId, mes, ano } = req.params;
     try {
       const movimentacoes = await MovimentacaoDAO.listarPorMes(usuarioId, mes, ano);
-
-      const entradas = movimentacoes.filter((m) => m.tipo === "entrada");
-      const saidas = movimentacoes.filter((m) => m.tipo === "saida");
-
-      return res.status(200).json({
-        entradas: entradas.map((movimentacao) => new MovimentacaoDTO(movimentacao)),
-        saidas: saidas.map((movimentacao) => new MovimentacaoDTO(movimentacao)),
-      });
+  
+      if (movimentacoes.length === 0) {
+        return res.status(200).json({ mensagem: "Sem movimentações" });
+      }
+  
+      return res.status(200).json(movimentacoes.map((movimentacao) => new MovimentacaoDTO(movimentacao)));
     } catch (erro) {
       return res.status(400).json({ erro: erro.message });
     }

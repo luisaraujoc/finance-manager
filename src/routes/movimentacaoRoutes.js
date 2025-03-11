@@ -4,7 +4,7 @@ const movimentacaoController = require("../controllers/movimentacaoController");
 
 router.post("/", movimentacaoController.criar);
 router.get("/:usuarioId", movimentacaoController.listar);
-router.get("/:usuarioId/movimentacoes/:mes/:ano", movimentacaoController.listarPorMes);
+router.get("/:usuarioId/:mes/:ano", movimentacaoController.listarPorMes);
 router.put("/:id", movimentacaoController.atualizar);
 router.delete("/:id", movimentacaoController.deletar);
 

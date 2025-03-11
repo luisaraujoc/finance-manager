@@ -30,6 +30,7 @@ const Categoria = sequelize.define('categorias', {
 }, {
     sequelize,
     modelName: 'Categoria',
+    timestamps: false,
 });
 
 module.exports = Categoria;

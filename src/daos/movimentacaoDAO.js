@@ -11,9 +11,9 @@ class MovimentacaoDAO {
   }
 
   async listarPorMes(usuarioId, mes, ano) {
-    const startDate = new Date(ano, mes - 1, 1);
-    const endDate = new Date(ano, mes, 1);
-
+    const startDate = new Date(ano, mes - 1, 1); // Mês é base 0 no JavaScript (janeiro = 0)
+    const endDate = new Date(ano, mes, 1); // Primeiro dia do próximo mês
+  
     return await Movimentacao.findAll({
       where: {
         usuario_id: usuarioId,
