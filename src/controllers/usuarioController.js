@@ -32,7 +32,6 @@ class UsuarioController {
 
   async login(req, res) {
     const { email, senha } = req.body;
-    console.log(email, senha);
     if (!email || !senha) {
       return res.status(400).json({ erro: "Preencha todos os campos" });
     }
