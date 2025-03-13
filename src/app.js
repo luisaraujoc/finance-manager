@@ -2,30 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("./config/dotenv");
 const sequelize = require("./config/database");
-const usuarioRoutes = require("./routes/usuarioRoutes");
-const categoriaRoutes = require("./routes/categoriaRoutes");
-const movimentacaoRoutes = require("./routes/movimentacaoRoutes");
+const BudgetRoutes = require("./routes/BudgetRoutes");
+const CategoryRoutes = require("./routes/CategoryRoutes");
+const PaymentsRoutes = require("./routes/PaymentsRoutes");
+const PersonRoutes = require("./routes/PersonRoutes");
+const UserRoutes = require("./routes/UserRoutes");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-sequelize
-  .sync()
-  .then(() => {
-    console.log("Conectado ao banco de dados");
-  })
-  .catch((err) => {
-    console.error("Erro ao conectar ao banco de dados:", err);
-  });
-
 app.get("/", (req, res) => {
   res.send("Olá, mundo!");
 });
 
-app.use("/usuarios", usuarioRoutes);
-app.use("/categorias", categoriaRoutes);
-app.use("/movimentacoes", movimentacaoRoutes);
+// Rotas
+app.use("/budgets", BudgetRoutes);
+app.use("/categories", CategoryRoutes);
+app.use("/payments", PaymentsRoutes);
+app.use("/persons", PersonRoutes);
+app.use("/users", UserRoutes);
 
 // Erro de rotas
 app.use((req, res, next) => {
@@ -40,6 +36,14 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+// Sincroniza o banco de dados
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Erro ao sincronizar o banco de dados", error);
+  });
