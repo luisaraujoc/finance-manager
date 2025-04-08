@@ -38,7 +38,9 @@ const PORT = process.env.PORT || 3000;
 
 // Sincroniza o banco de dados
 sequelize
-  .sync({ force: false })
+  .sync({ 
+    force: false
+  })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`);

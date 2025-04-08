@@ -9,6 +9,11 @@ if (result.error) {
 }
 
 console.log('Variáveis de ambiente carregadas com sucesso.');
+console.log('DB Config:', {
+    name: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASS
+  });
 
 module.exports = {
     get: (key, defaultValue = undefined) => process.env[key] || defaultValue,
